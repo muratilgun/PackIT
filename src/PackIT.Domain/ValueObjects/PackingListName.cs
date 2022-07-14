@@ -1,4 +1,4 @@
-﻿using System;
+﻿using PackIT.Domain.Exceptions;
 
 namespace PackIT.Domain.ValueObjects
 {
@@ -10,10 +10,13 @@ namespace PackIT.Domain.ValueObjects
         {
             if (string.IsNullOrWhiteSpace(value))
             {
-                //throw  new Exception()
+                throw new EmptyPackingListNameException();
             }
             Value = value;
         }
-
+        //PackListName name'i, string değere çevir.(Conversion)
+        public static implicit operator string(PackingListName name) => name.Value;
+        //string name'i PackListName name değerine çevir.(Conversion)
+        public static implicit operator PackingListName(string name) => new(name);
     }
 }

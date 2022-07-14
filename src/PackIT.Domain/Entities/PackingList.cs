@@ -1,4 +1,5 @@
 ﻿using System;
+using PackIT.Domain.ValueObjects;
 
 namespace PackIT.Domain.Entities
 {
@@ -6,10 +7,10 @@ namespace PackIT.Domain.Entities
     {
         public Guid Id { get; private set; }
 
-        private string _name;
+        private PackingListName _name;
         private string _localization;
 
-        internal PackingList(Guid id, string name, string localization)
+        internal PackingList(Guid id, PackingListName name, string localization)
         {
             Id = id;
             _name = name;
