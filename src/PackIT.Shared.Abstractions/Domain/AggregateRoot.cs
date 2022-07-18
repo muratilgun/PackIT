@@ -8,6 +8,7 @@ namespace PackIT.Shared.Abstractions.Domain
         public T Id { get; protected set; }
         public int Version { get; protected set; }
         private bool _versionIncremented;
+
         public IEnumerable<IDomainEvent> Events => _events;
         private readonly List<IDomainEvent> _events = new();
 
