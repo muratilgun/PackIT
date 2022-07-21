@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PackIT.Application;
 
 namespace PackIT.Api
 {
@@ -26,6 +27,7 @@ namespace PackIT.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplication();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
