@@ -8,7 +8,7 @@ namespace PackIT.Shared.Queries
 {
     public static class Extensions
     {
-        public static IServiceCollection AddCommands(this IServiceCollection services)
+        public static IServiceCollection AddQueries(this IServiceCollection services)
         {
             var assembly = Assembly.GetCallingAssembly();
             services.AddSingleton<IQueryDispatcher, InMemoryQueryDispatcher>();
