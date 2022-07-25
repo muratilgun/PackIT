@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PackIT.Infrastructure.EF.Models
 {
-    public class PackingListReadModel
+    internal class PackingListReadModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
