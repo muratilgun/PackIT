@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PackIT.Application;
+using PackIT.Infrastructure;
 
 namespace PackIT.Api
 {
@@ -29,6 +30,7 @@ namespace PackIT.Api
         {
             services.AddApplication();
             services.AddControllers();
+            services.AddInfrastructure();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PackIT.Api", Version = "v1" });
