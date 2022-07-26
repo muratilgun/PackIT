@@ -30,7 +30,7 @@ namespace PackIT.Api
         {
             services.AddApplication();
             services.AddControllers();
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PackIT.Api", Version = "v1" });
