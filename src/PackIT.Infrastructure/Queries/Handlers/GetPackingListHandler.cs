@@ -2,7 +2,6 @@
 using PackIT.Application.DTO;
 using PackIT.Application.Queries;
 using PackIT.Shared.Abstractions.Queries;
-using PackingListDto = PackIT.Infrastructure.EF.Models.PackingListDto;
 
 namespace PackIT.Infrastructure.Queries.Handlers
 {
