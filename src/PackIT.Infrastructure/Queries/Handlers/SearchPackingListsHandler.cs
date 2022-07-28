@@ -1,16 +1,33 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PackIT.Application.DTO;
 using PackIT.Application.Queries;
+using PackIT.Infrastructure.EF.Contexts;
+using PackIT.Infrastructure.EF.Models;
 using PackIT.Shared.Abstractions.Queries;
 
 namespace PackIT.Infrastructure.Queries.Handlers
 {
-public class SearchPackingListsHandler:IQueryHandler<SearchPackingLists, IEnumerable<PackingListDto>>
+internal sealed class SearchPackingListsHandler:IQueryHandler<SearchPackingLists, IEnumerable<PackingListDto>>
 {
+    private readonly DbSet<PackingListReadModel> _packingList;
+
+    public SearchPackingListsHandler(ReadDbContext context) => _packingList = context.PackingLists;
+
     public async Task<IEnumerable<PackingListDto>> HandleAsync(SearchPackingLists query)
     {
-        throw new System.NotImplementedException();
+        var dbQuery = _packingList.Include(pl => pl.Items).AsQueryable();
+
+        if (query.SearchPhrase is not null)
+        {
+            dbQuery = dbQuery.Where(pl =>
+                Microsoft.EntityFrameworkCore.EF.Functions
+                    .ILike(pl.Name, $"%{query.SearchPhrase}%"));
+        }
+
+        return await dbQuery.Select(pl=> pl.AsDto()).AsNoTracking().ToListAsync();
     }
 }
 }
