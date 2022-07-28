@@ -7,7 +7,7 @@ using PackIT.Infrastructure.EF.Contexts;
 using PackIT.Infrastructure.EF.Models;
 using PackIT.Shared.Abstractions.Queries;
 
-namespace PackIT.Infrastructure.Queries.Handlers
+namespace PackIT.Infrastructure.EF.Queries.Handlers
 {
     internal sealed class GetPackingListHandler : IQueryHandler<GetPackingList, PackingListDto>
     {

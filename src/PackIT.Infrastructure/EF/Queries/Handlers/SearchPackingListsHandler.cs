@@ -6,6 +6,7 @@ using PackIT.Application.DTO;
 using PackIT.Application.Queries;
 using PackIT.Infrastructure.EF.Contexts;
 using PackIT.Infrastructure.EF.Models;
+using PackIT.Infrastructure.EF.Queries;
 using PackIT.Shared.Abstractions.Queries;
 
 namespace PackIT.Infrastructure.Queries.Handlers

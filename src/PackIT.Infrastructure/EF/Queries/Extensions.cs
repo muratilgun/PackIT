@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using PackIT.Application.DTO;
-using PackIT.Domain.ValueObjects;
 using PackIT.Infrastructure.EF.Models;
 
-namespace PackIT.Infrastructure.Queries
+namespace PackIT.Infrastructure.EF.Queries
 {
     internal static class Extensions
     {
