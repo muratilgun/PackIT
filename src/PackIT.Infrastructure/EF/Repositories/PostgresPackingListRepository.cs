@@ -1,30 +1,42 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PackIT.Domain.Entities;
 using PackIT.Domain.Repositories;
 using PackIT.Domain.ValueObjects;
+using PackIT.Infrastructure.EF.Contexts;
 
 namespace PackIT.Infrastructure.EF.Repositories
 {
     internal sealed class PostgresPackingListRepository : IPackingListRepository
     {
-        public async Task<PackingList> GetAsync(PackingListId id)
+        private readonly DbSet<PackingList> _packingLists;
+        private readonly WriteDbContext _writeDbContext;
+
+        public PostgresPackingListRepository(DbSet<PackingList> packingLists, WriteDbContext writeDbContext)
         {
-            throw new System.NotImplementedException();
+            _packingLists = packingLists;
+            _writeDbContext = writeDbContext;
         }
 
-        public async Task<PackingList> AddAsync(PackingList packingList)
+        public async Task<PackingList> GetAsync(PackingListId id) => await _packingLists.Include("_items").SingleOrDefaultAsync(pl => pl.Id == id);
+
+        public async Task AddAsync(PackingList packingList)
         {
-            throw new System.NotImplementedException();
+            await _packingLists.AddAsync(packingList);
+            await _writeDbContext.SaveChangesAsync();
         }
 
-        public async Task<PackingList> UpdateAsync(PackingList packingList)
+        public async Task UpdateAsync(PackingList packingList)
         {
-            throw new System.NotImplementedException();
+            _packingLists.Update(packingList);
+            await _writeDbContext.SaveChangesAsync();
+
         }
 
-        public async Task<PackingList> DeleteAsync(PackingList packingList)
+        public async Task DeleteAsync(PackingList packingList)
         {
-            throw new System.NotImplementedException();
+             _packingLists.Remove(packingList);
+            await _writeDbContext.SaveChangesAsync();
         }
     }
 }
