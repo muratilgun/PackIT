@@ -4,7 +4,7 @@ using PackIT.Domain.ValueObjects;
 
 namespace PackIT.Application.Services
 {
-    public interface IWeatherApiService
+    public interface IWeatherService
     {
         Task<WeatherDto> GetWeatherAsync(Localization localization);
     }
