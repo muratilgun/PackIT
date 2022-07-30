@@ -50,4 +50,14 @@ Domain Event'in özü, onu geliştirmekte olduğunuz uygulamanın durumunda bir 
 Bu Event nesneleri daha sonra sistemde değişikliklere neden olmak için işlenir ve bir Audit Log sağlamak için saklanır.
 
 
+Sealed Class nesne yönelimli programlamanın kalıtım özelliğini kısıtlamak için kullanılır. Yani o class başka bir sınıfın base classı olamaz. 
+Bir metod sealed komutuyla işaretleniyorsa o metodtan türetilen sınıfların ilgili metodu override etmeleri önlenir
+
+Discard özelliğini sadece atama yapabildiğimiz ancak okuma yapamadığımız yerel değişkendir.
+Discard’ın bir başka kullanım ihtiyacına, TryParse vb. methodlarının sadece sonucuyla ilgilendiğimiz durumları gösterebiliriz. 
+
+ICollection<T> kullanılır, 
+çünkü IEnumerable<T> arabirimi öğe ekleme, öğe kaldırma veya koleksiyonu başka şekilde değiştirme olanağı sağlamaz.
+
+
 
