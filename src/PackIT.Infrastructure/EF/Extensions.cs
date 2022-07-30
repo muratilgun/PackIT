@@ -17,9 +17,13 @@ namespace PackIT.Infrastructure.EF
         {
             services.AddScoped<IPackingListRepository, PostgresPackingListRepository>();
             services.AddScoped<IPackingListReadService, PostgresPackingListReadService>();
+            
             var options = configuration.GetOptions<PostgresOptions>("Postgres");
-            services.AddDbContext<ReadDbContext>(ctx => ctx.UseNpgsql(options.ConnectionString));
-            services.AddDbContext<WriteDbContext>(ctx => ctx.UseNpgsql(options.ConnectionString));
+            services.AddDbContext<ReadDbContext>(ctx => 
+                ctx.UseNpgsql(options.ConnectionString));
+            services.AddDbContext<WriteDbContext>(ctx => 
+                ctx.UseNpgsql(options.ConnectionString));
+
             return services;
         }
     }

@@ -12,13 +12,14 @@ namespace PackIT.Infrastructure.EF.Repositories
         private readonly DbSet<PackingList> _packingLists;
         private readonly WriteDbContext _writeDbContext;
 
-        public PostgresPackingListRepository(DbSet<PackingList> packingLists, WriteDbContext writeDbContext)
+        public PostgresPackingListRepository(WriteDbContext writeDbContext)
         {
-            _packingLists = packingLists;
+            _packingLists = writeDbContext.PackingLists;
             _writeDbContext = writeDbContext;
         }
 
-        public async Task<PackingList> GetAsync(PackingListId id) => await _packingLists.Include("_items").SingleOrDefaultAsync(pl => pl.Id == id);
+        public Task<PackingList> GetAsync(PackingListId id)
+            => _packingLists.Include("_items").SingleOrDefaultAsync(pl => pl.Id == id); 
 
         public async Task AddAsync(PackingList packingList)
         {
@@ -30,12 +31,11 @@ namespace PackIT.Infrastructure.EF.Repositories
         {
             _packingLists.Update(packingList);
             await _writeDbContext.SaveChangesAsync();
-
         }
 
         public async Task DeleteAsync(PackingList packingList)
         {
-             _packingLists.Remove(packingList);
+            _packingLists.Remove(packingList);
             await _writeDbContext.SaveChangesAsync();
         }
     }
