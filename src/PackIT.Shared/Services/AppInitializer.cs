@@ -17,8 +17,10 @@ namespace PackIT.Shared.Services
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var dbContextTypes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes()).Where(a =>
-                typeof(DbContext).IsAssignableFrom(a) && !a.IsInterface && a != typeof(DbContext));
+            var dbContextTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(a => typeof(DbContext).IsAssignableFrom(a) && !a.IsInterface && a != typeof(DbContext));
+
             using var scope = _serviceProvider.CreateScope();
             foreach (var dbContextType in dbContextTypes)
             {

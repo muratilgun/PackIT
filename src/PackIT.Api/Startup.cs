@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PackIT.Application;
 using PackIT.Infrastructure;
+using PackIT.Shared;
 
 namespace PackIT.Api
 {
@@ -28,6 +29,7 @@ namespace PackIT.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddShared();
             services.AddApplication();
             services.AddControllers();
             services.AddInfrastructure(Configuration);
