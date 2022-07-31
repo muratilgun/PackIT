@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PackIT.Domain.Entities;
 using PackIT.Domain.Repositories;
@@ -19,7 +20,7 @@ namespace PackIT.Infrastructure.EF.Repositories
         }
 
         public Task<PackingList> GetAsync(PackingListId id)
-            => _packingLists.Include("_items").SingleOrDefaultAsync(pl => pl.Id == id); 
+            => _packingLists.Include("_items").SingleOrDefaultAsync(pl => pl.Id == id);
 
         public async Task AddAsync(PackingList packingList)
         {

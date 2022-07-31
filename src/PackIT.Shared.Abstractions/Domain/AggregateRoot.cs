@@ -7,10 +7,10 @@ namespace PackIT.Shared.Abstractions.Domain
     {
         public T Id { get; protected set; }
         public int Version { get; protected set; }
-        private bool _versionIncremented;
-
         public IEnumerable<IDomainEvent> Events => _events;
-        private readonly List<IDomainEvent> _events = new();
+
+        private readonly List<IDomainEvent> _events = new(); 
+        private bool _versionIncremented;
 
         protected void AddEvent(IDomainEvent @event)
         {
@@ -18,11 +18,13 @@ namespace PackIT.Shared.Abstractions.Domain
             {
                 Version++;
                 _versionIncremented = true;
-                _events.Add(@event);
             }
+            
+            _events.Add(@event);
         }
 
-        public void ClearEvents() => _events.Clear();
+        public void ClearEvents() => _events.Clear();    
+
         protected void IncrementVersion()
         {
             if (_versionIncremented)
