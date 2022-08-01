@@ -2,7 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using PackIT.Application.Services;
 using PackIT.Infrastructure.EF;
+using PackIT.Infrastructure.Logging;
 using PackIT.Infrastructure.Services;
+using PackIT.Shared.Abstractions.Commands;
 using PackIT.Shared.Queries;
 
 namespace PackIT.Infrastructure
@@ -15,6 +17,7 @@ namespace PackIT.Infrastructure
             services.AddPostgres(configuration);
             services.AddQueries();
             services.AddSingleton<IWeatherService, DumbWeatherService>();
+            services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
                         
             return services;
         }
