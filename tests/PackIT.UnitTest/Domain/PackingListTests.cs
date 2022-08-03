@@ -34,8 +34,9 @@ namespace PackIT.UnitTest.Domain
             var exception = Record.Exception(() => packingList.AddItem(new PackingItem("Item 1", 1)));
             exception.ShouldBeNull();
             packingList.Events.Count().ShouldBe(1);
-            var @event = packingList.Events.FirstOrDefault();
-            @event.ShouldBeOfType<PackingItemAdded>();
+            var @event = packingList.Events.FirstOrDefault() as PackingItemAdded;
+            @event.ShouldNotBeNull();
+            @event.PackingItem.Name.ShouldBe("Item 1");
         }
 
         #region ARRANGE
