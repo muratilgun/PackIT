@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using NSubstitute;
 using PackIT.Application.Commands;
 using PackIT.Application.Commands.Handlers;
+using PackIT.Application.DTO.External;
 using PackIT.Application.Exceptions;
 using PackIT.Application.Services;
 using PackIT.Domain.Consts;
 using PackIT.Domain.Factories;
 using PackIT.Domain.Repositories;
+using PackIT.Domain.ValueObjects;
 using PackIT.Shared.Abstractions.Commands;
 using Shouldly;
 using Xunit;
@@ -30,6 +32,18 @@ namespace PackIT.UnitTest.Application
             exception.ShouldBeOfType<PackingListAlreadyExistsException>();
         }
 
+        [Fact]
+        public async Task
+            HandleAsync_Throws_MissingLocalizationWeatherException_When_Weather_Is_Not_Returned_From_Service()
+        {
+            var command = new CreatePackingListWithItems(Guid.NewGuid(), "MyList", 10, Gender.Female, new LocalizationWriteModel("Warsaw","Poland"));
+            _readService.ExistsByNameAsync(command.Name).Returns(false);
+            _weatherService.GetWeatherAsync(Arg.Any<Localization>()).Returns(default(WeatherDto));
+            var exception = await Record.ExceptionAsync(() => Act(command));
+
+            exception.ShouldNotBeNull();
+            exception.ShouldBeOfType<MissingLocalizationWeatherException>();
+        }
         #region ARRANGE
 
         private readonly ICommandHandler<CreatePackingListWithItems> _commandHandler;
